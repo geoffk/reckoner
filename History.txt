@@ -1,0 +1,12 @@
+=== 0.5.0 / 2010-3-31
+* Moving to github and gemcutter
+
+=== 0.2.0 / 2009-06-19
+
+* Still more to do:
+  * Break out the stuff from bin/reckoner into class so that it 
+    be tested more easily.
+
+  * Add some more checks
+
+

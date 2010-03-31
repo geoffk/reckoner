@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+$:.unshift File.join(File.dirname(__FILE__), '../lib')
+require 'main'
+
+main = Main.new(ARGV)
+output = main.run_reckoner
+puts output if output

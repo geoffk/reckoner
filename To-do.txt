@@ -1,0 +1,2 @@
+* Need to test the stuff in the Main class
+* Add more checks
