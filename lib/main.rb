@@ -16,6 +16,7 @@ with the command line arguments, configuration file and email.
 =end
 
 class Main
+  VERSION = '0.9.2'
   include SampleFile
 
   DEFAULT_ARGUMENTS = {
@@ -51,6 +52,10 @@ class Main
       end
       o.on('-s FILE','--sample-config FILE', 'Create a sample config named FILE') do |sample|
         @arguments['sample'] = sample
+      end
+      o.on('-v', '--version', 'Display version string') do |v|
+        puts "Ruby Reckoner version #{Main::VERSION}"
+        exit
       end
     end
     @opt_parser.parse!(@argv)

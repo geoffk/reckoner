@@ -4,7 +4,6 @@ The Reckoner class is intialized with the configuration information,
 loads the checks and performs them.
 =end
 class Reckoner
- VERSION = '0.4.0'
 
   attr_accessor :debug
   attr_reader :errors
