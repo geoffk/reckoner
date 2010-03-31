@@ -47,8 +47,6 @@ mail:
   to: DESTINATION EMAIL ADDRESS
   #from: defaults to current user 
   #subject_prefix: "RECKONER:"
-  #sendmail_path: sendmail
-  #sendmail_options: -i -t
   #always_email: true
 
 SAMPLE

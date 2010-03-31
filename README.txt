@@ -26,16 +26,16 @@ the CONFIG FILE argument or from stdin.
 
 *Options*
 
-  -d --debug Output debugging information
-
-  -q --quiet Suppress the check output
-
-  -c --checks=FILE Specifies a Ruby file that contains
-  additional checks that can be performed.
+    -d, --debug                      Output debugging information
+    -q, --quiet                      Do not print final report
+    -e, --email-off                  Do not send email, even if configured
+    -c, --checks=FILE                Additional checks file
+    -s, --sample-config FILE         Create a sample config named FILE
 
 == REQUIREMENTS:
 
 * Ruby
+* Ruby 'mail' gem
 
 == INSTALL:
 

@@ -3,12 +3,12 @@ require 'rubygems'
 require 'yaml'
 require 'optparse'
 require 'fileutils'
+require 'mail'
 
 require 'rfile.rb'
 require 'abstract_check.rb'
-require 'reckoner'
-require 'sendmail'
-require 'sample'
+require 'reckoner.rb'
+require 'sample.rb'
 
 =begin rdoc
 The Main class ties together the core Reckoner functionality
@@ -97,24 +97,25 @@ class Main
 
   def send_email(cm,mail_config)
     raise "Mail section must have a 'to' parameter" unless mail_config['to']
-    mailobj = Sendmail.new(mail_config['sendmail_path'],
-                           mail_config['sendmail_options'])
 
-    from = mail_config['from'] || ENV['USER']
     always_mail = mail_config['always_mail'] || true
-    subject = mail_config['subject_prefix'] || 'Reckoner:'
-    subject.strip!
-    subject << ' '
+
+    mail = Mail.new
+    mail[:from] = mail_config['from'] || ENV['USER'] + '@' + ENV['HOSTNAME']
+    mail[:to] = mail_config['to']
+
+    prefix = mail_config['subject_prefix'] || 'Reckoner:'  
+    prefix.strip
 
     if !cm.errors.empty?
-      subject << "Found #{cm.errors.length} problem(s)"
-      body = cm.errors.join("\n")
-      mailobj.send(mail_config['to'],from,subject,body)
+      mail[:subject] = "#{prefix} Found #{cm.errors.length} problem(s)"
+      mail[:body] = cm.errors.join("\n")
     elsif always_mail
-      subject << "No problems found"
-      body = "No problems found"
-      mailobj.send(mail_config['to'],from,subject,body)
+      mail[:subject] = "#{prefix} No problems found"
+      mail[:body] = "No problems found"
     end
+
+    mail.deliver!
   end
 
   def output_results(cm)

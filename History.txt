@@ -1,5 +1,6 @@
-=== 0.5.0 / 2010-3-31
+=== 0.9.0 / 2010-3-31
 * Moving to github and gemcutter
+* Switched to new 'mail' gem instead of rolling my own
 
 === 0.2.0 / 2009-06-19
 
