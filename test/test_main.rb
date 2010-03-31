@@ -41,7 +41,6 @@ class MainTest < Test::Unit::TestCase
     m2 = Main.new(['-e',fname])
     out = m2.run_reckoner
     assert(/Reckoner found a problem with '\/etc\/fake-file'/.match(out))
-    assert out.split("\n").length > 4
   end
 
   def test_additional_checks
