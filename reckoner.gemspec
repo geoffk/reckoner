@@ -5,5 +5,6 @@ spec = Gem::Specification.new do |s|
   s.bindir = 'bin'
   s.authors = 'Geoff Kloess'
   s.email = 'geoff.kloess@gmail.com'
+  s.homepage = 'http://github.com/geoffk/reckoner'
 end
 

@@ -1,6 +1,6 @@
 = reckoner
 
-* http://reckoner.rubyforge.com
+* http://github.com/geoffk/reckoner
 
 == DESCRIPTION:
 
