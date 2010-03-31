@@ -2,7 +2,7 @@ require 'rake'
 
 spec = Gem::Specification.new do |s|
   s.name = 'reckoner'
-  s.version = '0.9'
+  s.version = '0.9.2'
   s.summary = 'Checks user-specified files and sends alert emails when not found.'
   s.authors = 'Geoff Kloess'
   s.email = 'geoff.kloess@gmail.com'
@@ -10,6 +10,7 @@ spec = Gem::Specification.new do |s|
   s.add_dependency('mail')
 
   s.files = FileList['Gemfile','History.txt','README.txt','bin/*','lib/*']
+  s.executables = 'reckoner'
 
   s.description = <<-EOF
 Ruby Reckoner is an easily-configurable program that monitors

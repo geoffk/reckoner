@@ -2,7 +2,7 @@ module SampleFile
 SAMPLE_CONFIGURATION_FILE = <<SAMPLE
 # SAMPLE RECKONER CONFIGURATION FILES
 # Reckoner uses a YAML formatted file to define the checks
-# that it should preform.  The file has two sections,
+# that it should perform.  The file has two sections,
 # the 'check' section and the 'mail' section.
 
 # The check section contains a list of check blocks, each 
@@ -19,12 +19,12 @@ check:
 
   # This is the simplest possible check.  It simply ensures
   # that there exists a file named '.bash_history'.  Since this
-  # checks doesn't overwrite the default 'base_path' it will
+  # check doesn't overwrite the default 'base_path' it will
   # check for this file in '/home/geoffk'
   geoff_check:
     files: .bash_history
 
-  # This check block, named 'etc-files', sets it's own base
+  # This check block, named 'etc-files', sets its own base
   # path of '/etc' and then checks that two files,
   # 'redhat-release' and 'inittab', exist there.  Note the
   # use of square brackets and the comma to make a list of files.
@@ -32,7 +32,7 @@ check:
     base_path: /etc
     files: [fake-file, inittab]
 
-  # This check ensures that two files exist and that they be 
+  # This check ensures that two files exist and that they are 
   # at least 1kb in size and have been updated in the last
   # three days. 
   desktop-files:
