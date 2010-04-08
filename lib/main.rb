@@ -4,6 +4,7 @@ require 'yaml'
 require 'optparse'
 require 'fileutils'
 require 'mail'
+require 'socket'
 
 require 'rfile.rb'
 require 'abstract_check.rb'
@@ -16,7 +17,7 @@ with the command line arguments, configuration file and email.
 =end
 
 class Main
-  VERSION = '0.9.3'
+  VERSION = '0.9.4'
   include SampleFile
 
   DEFAULT_ARGUMENTS = {
@@ -106,8 +107,14 @@ class Main
     always_mail = mail_config['always_mail'] || true
 
     mail = Mail.new
-    mail[:from] = mail_config['from'] || ENV['USER'] + '@' + ENV['HOSTNAME']
     mail[:to] = mail_config['to']
+
+    puts ENV.inspect
+
+    mail_user = ENV['USER'] || 'reckoner'
+    mail_host = Socket.gethostname || ENV['HOSTNAME'] || 'unknown'
+
+    mail[:from] = mail_user + '@' + mail_host.downcase
 
     prefix = mail_config['subject_prefix'] || 'Reckoner:'  
     prefix.strip
