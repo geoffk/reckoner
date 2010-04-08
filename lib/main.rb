@@ -109,8 +109,6 @@ class Main
     mail = Mail.new
     mail[:to] = mail_config['to']
 
-    puts ENV.inspect
-
     mail_user = ENV['USER'] || 'reckoner'
     mail_host = Socket.gethostname || ENV['HOSTNAME'] || 'unknown'
 
