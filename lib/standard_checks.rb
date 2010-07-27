@@ -14,8 +14,10 @@ class Freshness < AbstractCheck
     hours = unit_parse(options,HOUR_HASH)
 
     old_time = Time.now - (hours * SECONDS_IN_HOUR)
+    tomorrow = Time.now + (24 * SECONDS_IN_HOUR)
 
-    unless path_obj.any_sub_node?{|f| f.mtime > old_time}
+    unless path_obj.any_sub_node?{|f| f.mtime < tomorrow && f.mtime > old_time}
+    #unless path_obj.any_sub_node?{|f| f.mtime > old_time}
       add_error('file is too old')
     end
   end

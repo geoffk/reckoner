@@ -38,12 +38,20 @@ class FreshnessTest < Test::Unit::TestCase
   end
 
   def test_recursive_success
-    hundred_days_ago = Time.now - d2s(100)
-    File.utime(hundred_days_ago,hundred_days_ago,ROOT)
-    assert_equal File.mtime(ROOT).to_s,hundred_days_ago.to_s
-    
     @cm.check('test'=> {'files'=>ROOT, 'freshness' => '20'})
     assert @cm.errors.empty?
   end
+
+  def test_recursive_failure
+    @cm.check('test'=> {'files'=>ROOT, 'freshness' => '1 hour'})
+    assert_equal 1,@cm.errors.length
+  end
+
+  def test_ignore_files_from_the_future
+    makef(ROOT,['future'],:atime=> Time.now + d2s(2))
+    @cm.check('test'=> {'files'=>ROOT, 'freshness' => '1 hour'})
+    assert_equal 1,@cm.errors.length
+  end
+
 
 end

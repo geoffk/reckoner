@@ -8,7 +8,7 @@ module BackupCheckSupport
 
   ROOT = '/tmp/file_verifier_tests'
 
-  #Makes a set of file that meet the specified options
+  #Makes a set of files that meet the specified options
   def makef(root,name,options = {})
     mkdir root unless File.exists?(root.to_s)
     if name.is_a? Hash
@@ -25,6 +25,7 @@ module BackupCheckSupport
       File.chmod(options[:chmod],path) if options[:chmod]
       File.utime(options[:atime],options[:atime],path) if options[:atime]
     end
+    File.utime(options[:atime],options[:atime],root) if options[:atime]
   end
 
   #Converts days to seconds

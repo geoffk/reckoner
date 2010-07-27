@@ -1,3 +1,10 @@
+=== 0.9.4.1
+* Excluding files that are more than a day in the future from Freshness
+  checks.
+
+=== 0.9.4
+* Fixed a problem with mail when running from a CRON job
+
 === 0.9.0 / 2010-3-31
 * Moving to github and gemcutter
 * Switched to new 'mail' gem instead of rolling my own
