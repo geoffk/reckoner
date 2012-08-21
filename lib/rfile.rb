@@ -46,7 +46,7 @@ class RFile
     opts = { :directories => true,
              :files => true }.merge(options)
     #Find.find(@path) do |path|
-    DirectoryRecurser.find(@path) do |path|
+    DirectoryRecurser.find(@path, :atime) do |path|
        if ((File.file?(path) && opts[:files]) ||
            (File.directory?(path) && opts[:directories]))
          yield RFile.new(path)

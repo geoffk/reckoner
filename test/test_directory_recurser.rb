@@ -30,29 +30,27 @@ class DirectoryRecurserTest < Test::Unit::TestCase
     assert_equal ['f3', 'd2', 'd1'], found
   end
 
-  def test_that_directories_are_searched_in_descending_order
+  def test_atime_sorting
     makef(ROOT,{:s => {:d1 => :f1}}, :atime => Time.now - 2000)
     makef(ROOT,{:s => {:d2 => :f2}}, :atime => Time.now)
+    makef(ROOT,{:s => {:d3 => :f3}}, :atime => Time.now - 4000)
 
     found = []
-    DirectoryRecurser.find(File.join(ROOT,'s')) do |f|
+    DirectoryRecurser.find(File.join(ROOT,'s'), :atime) do |f|
       found << File.basename(f)
     end
-    assert_equal ['f2', 'd2', 'f1', 'd1', 's'], found
-    
-    clean_root
+    assert_equal ['f2', 'd2', 'f1', 'd1', 'f3', 'd3', 's'], found
+  end
 
+  def test_alpha_sorting
     makef(ROOT,{:s => {:d1 => :f1}}, :atime => Time.now)
     makef(ROOT,{:s => {:d2 => :f2}}, :atime => Time.now - 2000)
 
     found = []
-    DirectoryRecurser.find(File.join(ROOT,'s')) do |f|
+    DirectoryRecurser.find(File.join(ROOT,'s'), :alpha) do |f|
       found << File.basename(f)
     end
     assert_equal ['f1', 'd1', 'f2', 'd2', 's'], found
-    
-    clean_root
-
   end
 
 end
