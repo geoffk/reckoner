@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
+require 'pathname'
 
-$:.unshift File.join(File.dirname(__FILE__), '../lib')
+$:.unshift(Pathname.new(__FILE__).realpath.dirname.parent + 'lib')
 require 'main'
 
 main = Main.new(ARGV)
