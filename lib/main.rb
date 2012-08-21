@@ -18,7 +18,7 @@ with the command line arguments, configuration file and email.
 =end
 
 class Main
-  VERSION = '0.9.4.1'
+  VERSION = '0.9.5.0'
   include SampleFile
 
   DEFAULT_ARGUMENTS = {
