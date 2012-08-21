@@ -42,6 +42,17 @@ class DirectoryRecurserTest < Test::Unit::TestCase
     
     clean_root
 
+    makef(ROOT,{:s => {:d1 => :f1}}, :atime => Time.now)
+    makef(ROOT,{:s => {:d2 => :f2}}, :atime => Time.now - 2000)
+
+    found = []
+    DirectoryRecurser.find(File.join(ROOT,'s')) do |f|
+      found << File.basename(f)
+    end
+    assert_equal ['f1', 'd1', 'f2', 'd2', 's'], found
+    
+    clean_root
+
   end
 
 end
