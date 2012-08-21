@@ -28,6 +28,10 @@ module BackupCheckSupport
     File.utime(options[:atime],options[:atime],root) if options[:atime]
   end
 
+  def clean_root
+    rm_rf(ROOT)
+  end
+
   #Converts days to seconds
   def d2s(days)
     days * 24 * 60 * 60

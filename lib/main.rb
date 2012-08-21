@@ -10,6 +10,7 @@ require 'rfile.rb'
 require 'abstract_check.rb'
 require 'reckoner.rb'
 require 'sample.rb'
+require 'directory_recurser.rb'
 
 =begin rdoc
 The Main class ties together the core Reckoner functionality

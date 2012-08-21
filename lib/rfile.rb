@@ -1,3 +1,4 @@
+require 'directory_recurser'
 
 # RFile provides a unified and easy way to check various 
 # attributes of a specific file or path.  It provides simple
@@ -44,7 +45,8 @@ class RFile
   def sub_nodes(options = {})
     opts = { :directories => true,
              :files => true }.merge(options)
-    Find.find(@path) do |path|
+    #Find.find(@path) do |path|
+    DirectoryRecurser.find(@path) do |path|
        if ((File.file?(path) && opts[:files]) ||
            (File.directory?(path) && opts[:directories]))
          yield RFile.new(path)
