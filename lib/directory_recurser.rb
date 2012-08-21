@@ -1,11 +1,11 @@
 # Acts as stdlib Find, but goes through the directories and files 
 # in order of access time
 class DirectoryRecurser
-  def DirectoryRecurser.find(input_path, sorting = :atime)
+  def self.find(input_path, sorting = :atime)
     dd = []
     if File.directory?(input_path)
       dd = Dir.new(input_path).entries.map{|f| File.join(input_path,f)}
-      dd.delete_if{|path| ['.','..'].include?(File.basename(path))}
+      dd.delete_if{|path| unwanted?(path)}
       dd.compact!
 
       if sorting == :alpha
@@ -23,7 +23,14 @@ class DirectoryRecurser
       else
         yield(path)
       end
+
     end
     yield(input_path)
+  end
+
+  private
+ 
+  def self.unwanted?(path)
+    File.symlink?(path) || ['.','..'].include?(File.basename(path))
   end
 end
