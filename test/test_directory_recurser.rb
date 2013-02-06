@@ -53,4 +53,22 @@ class DirectoryRecurserTest < Test::Unit::TestCase
     assert_equal ['f1', 'd1', 'f2', 'd2', 's'], found
   end
 
+  def test_mtime_vs_atime_sorting
+    makef(ROOT,{:s => :f1}, :atime => Time.now - 2000)
+    makef(ROOT,{:s => :f2}, :atime => Time.now - 4000)
+    File.read( File.join(ROOT,'s','f2') )
+
+    found = []
+    DirectoryRecurser.find(File.join(ROOT,'s'), :mtime) do |f|
+      found << File.basename(f)
+    end
+    assert_equal ['f1', 'f2', 's'], found
+
+    found = []
+    DirectoryRecurser.find(File.join(ROOT,'s'), :atime) do |f|
+      found << File.basename(f)
+    end
+    assert_equal ['f2', 'f1', 's'], found
+    
+  end
 end

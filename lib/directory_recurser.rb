@@ -10,8 +10,12 @@ class DirectoryRecurser
 
       if sorting == :alpha
         dd = dd.sort_by{|f1| File.basename(f1)}
+      elsif sorting == :mtime
+        dd = dd.sort_by{|f1| File.mtime(f1)}.reverse
       elsif sorting == :atime
         dd = dd.sort_by{|f1| File.atime(f1)}.reverse
+      else
+        raise "Invalid sorting method: #{sorting}"
       end
     end
 
