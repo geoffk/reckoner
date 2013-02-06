@@ -8,6 +8,7 @@ require 'directory_recurser'
 # Find functionality.
 class RFile
   attr_reader :path
+  attr_accessor :recursive_order
 
   %w(<=> atime blksize blockdev? blocks chardev? ctime 
      dev dev_major dev_minor directory? executable? executable_real? 
@@ -34,8 +35,9 @@ class RFile
     @stat
   end
 
-  def initialize(path)
+  def initialize(path, recursive_order = :atime)
     @path = path
+    @recursive_order = recursive_order
   end
 
   def to_s
@@ -46,7 +48,7 @@ class RFile
     opts = { :directories => true,
              :files => true }.merge(options)
     #Find.find(@path) do |path|
-    DirectoryRecurser.find(@path, :atime) do |path|
+    DirectoryRecurser.find(@path, @recursive_order) do |path|
        if ((File.file?(path) && opts[:files]) ||
            (File.directory?(path) && opts[:directories]))
          yield RFile.new(path)

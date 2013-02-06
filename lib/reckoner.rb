@@ -59,17 +59,24 @@ class Reckoner
 
       files = [files] unless files.is_a? Array
 
+      if checks['recursive_order']
+        recursive_order = checks.delete('recursive_order').to_sym
+      else
+        recursive_order = :atime
+      end
+
       files.each do |f|
         if base_path
-          file_path = File.join(base_path,f.strip)
+          rfile = RFile.new(File.join(base_path,f.strip))
         else
-          file_path = f.strip
+          rfile = RFile.new(f.strip)
         end
-        if File.exists?(file_path) && File.readable?(file_path)
-          puts "  Checking file '#{file_path}'" if @debug
-          run_checks(block,file_path,checks)
+        rfile.recursive_order = recursive_order        
+        if File.exists?(rfile.path) && File.readable?(rfile.path)
+          puts "  Checking file '#{rfile.path}'" if @debug
+          run_checks(block,rfile,checks)
         else
-          @errors << "Reckoner found a problem with '#{file_path}': file " +
+          @errors << "Reckoner found a problem with '#{rfile.path}': file " +
                      "does not exist or is not readable by this user"
         end   
       end
@@ -79,15 +86,15 @@ class Reckoner
   private
 
   # Runs a set of checks on a file path
-  def run_checks(block,file_path,checks)
+  def run_checks(block,rfile,checks)
     checks.each do |chk|
-      puts "  Running check #{chk.inspect} on #{file_path}" if @debug
+      puts "  Running check #{chk.inspect} on #{rfile.path}" if @debug
 
       check_name = chk[0]
       check_options = chk[1]
 
       if @registered_checks[check_name]
-        check_obj = @registered_checks[check_name].new(file_path)
+        check_obj = @registered_checks[check_name].new(rfile)
         check_obj.run_check(check_options.to_s)
         @errors = @errors + check_obj.errors
       else

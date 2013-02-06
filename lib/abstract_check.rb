@@ -60,9 +60,9 @@ class AbstractCheck
   end
 
   # Creates the check object, requires a path to check as the argument.
-  def initialize(file_path)
+  def initialize(rfile)
     @errors = []
-    @path = RFile.new(file_path)
+    @path = rfile
   end
 
   # Called by the Recokoner class to run the check

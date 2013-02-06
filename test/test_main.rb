@@ -19,6 +19,7 @@ class MainTest < Test::Unit::TestCase
           files: f4
         d1:
           files: [d1, d1/d1f1]
+          recursive_order: mtime
     CONFIG
   end
 
