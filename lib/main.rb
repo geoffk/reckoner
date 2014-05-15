@@ -118,13 +118,17 @@ class Main
     prefix = mail_config['subject_prefix'] || 'Reckoner:'  
     prefix.strip
 
+    body = "Start time: #{cm.start_time}\nEnd time: #{cm.end_time}\n\n"
+
     if !cm.errors.empty?
       mail[:subject] = "#{prefix} Found #{cm.errors.length} problem(s)"
-      mail[:body] = cm.errors.join("\n")
+      body << cm.errors.join("\n")
     elsif always_mail
       mail[:subject] = "#{prefix} No problems found"
-      mail[:body] = "No problems found"
+      body << "No problems found"
     end
+
+    mail[:body] = body
 
     mail.deliver!
   end

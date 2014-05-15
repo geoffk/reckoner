@@ -6,7 +6,7 @@ loads the checks and performs them.
 class Reckoner
 
   attr_accessor :debug
-  attr_reader :errors
+  attr_reader :errors, :start_time, :end_time
 
   # Creates the class.  The first argument is an array of custom check files, 
   # if any. The debug arguments determines whether or not debugging information 
@@ -44,6 +44,7 @@ class Reckoner
     default_checks = check_hash.delete('default_check') || {}
     puts "Using defaults: #{default_checks.inspect}" if @debug && !default_checks.empty?
 
+    @start_time = Time.now
     check_hash.each do |block,checks|
       puts "\n'#{block}'" if @debug
 
@@ -81,6 +82,7 @@ class Reckoner
         end   
       end
     end
+    @end_time = Time.now
   end
 
   private
