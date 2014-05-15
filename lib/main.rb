@@ -118,7 +118,7 @@ class Main
     prefix = mail_config['subject_prefix'] || 'Reckoner:'  
     prefix.strip
 
-    body = "Start time: #{cm.start_time}\nEnd time: #{cm.end_time}\n\n"
+    body = ""
 
     if !cm.errors.empty?
       mail[:subject] = "#{prefix} Found #{cm.errors.length} problem(s)"
@@ -127,6 +127,8 @@ class Main
       mail[:subject] = "#{prefix} No problems found"
       body << "No problems found"
     end
+
+    body << "\n\nStart time: #{cm.start_time}\nEnd time: #{cm.end_time}"
 
     mail[:body] = body
 
