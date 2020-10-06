@@ -25,6 +25,14 @@ class FreshnessTest < Test::Unit::TestCase
     assert @cm.errors.empty?
   end
 
+  def test_wildcard_file_success
+    @cm.check('test'=> {'files'=>File.join(ROOT,'on*'), 'freshness' => '20'})
+    assert @cm.errors.empty?
+
+    @cm.check('test'=> {'files'=>File.join(ROOT,'si*'), 'freshness' => '30 hours'})
+    assert @cm.errors.empty?
+  end
+
   def test_single_file_failure
     @cm.check('test'=> {'files'=>File.join(ROOT,'one'), 'freshness' => '5'})
     assert_equal 1, @cm.errors.length
