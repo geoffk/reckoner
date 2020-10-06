@@ -20,8 +20,8 @@ class MainTest < Test::Unit::TestCase
         d1:
           files: [d1, d1/d1f1]
           recursive_order: mtime
-      #  wildcard:
-      #    files: d1/d1*
+        wildcard:
+          files: d1/d1*
     CONFIG
   end
 

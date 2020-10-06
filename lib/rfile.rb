@@ -40,8 +40,21 @@ class RFile
     @recursive_order = recursive_order
   end
 
-  def exists_and_readable
-    File.exist?(@path) && File.readable?(@path)
+  def matching_paths
+    Dir.glob(@path)
+  end
+
+  def each_matching_path
+    matching_paths.each do |p|
+      yield p
+    end
+  end
+
+  def exists_and_readable?
+    each_matching_path do |p| 
+      return true if File.exist?(p) && File.readable?(p)
+    end
+    return false
   end
 
   def to_s
@@ -51,12 +64,13 @@ class RFile
   def sub_nodes(options = {})
     opts = { :directories => true,
              :files => true }.merge(options)
-    #Find.find(@path) do |path|
-    DirectoryRecurser.find(@path, @recursive_order) do |path|
-       if ((File.file?(path) && opts[:files]) ||
-           (File.directory?(path) && opts[:directories]))
-         yield RFile.new(path)
-       end
+    each_matching_path do |p|
+      DirectoryRecurser.find(p, @recursive_order) do |path|
+         if ((File.file?(path) && opts[:files]) ||
+             (File.directory?(path) && opts[:directories]))
+           yield RFile.new(path)
+         end
+      end
     end
   end
 
