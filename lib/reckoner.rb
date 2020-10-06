@@ -73,7 +73,7 @@ class Reckoner
           rfile = RFile.new(f.strip)
         end
         rfile.recursive_order = recursive_order        
-        if File.exists?(rfile.path) && File.readable?(rfile.path)
+        if File.exist?(rfile.path) && File.readable?(rfile.path)
           puts "  Checking file '#{rfile.path}'" if @debug
           run_checks(block,rfile,checks)
         else

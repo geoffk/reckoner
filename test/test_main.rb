@@ -37,7 +37,7 @@ class MainTest < Test::Unit::TestCase
     fname = ROOT + '/sample.yaml'
     m1 = Main.new(['-s',fname])
     m1.run_reckoner
-    assert File.exists?(fname)
+    assert File.exist?(fname)
 
     m2 = Main.new(['-e',fname])
     out = m2.run_reckoner

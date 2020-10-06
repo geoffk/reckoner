@@ -10,7 +10,7 @@ module BackupCheckSupport
 
   #Makes a set of files that meet the specified options
   def makef(root,name,options = {})
-    mkdir root unless File.exists?(root.to_s)
+    mkdir root unless File.exist?(root.to_s)
     if name.is_a? Hash
       name.each do |k,n|
         makef File.join(root,k.to_s),n,options
