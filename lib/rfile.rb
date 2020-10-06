@@ -40,6 +40,10 @@ class RFile
     @recursive_order = recursive_order
   end
 
+  def exists_and_readable
+    File.exist?(@path) && File.readable?(@path)
+  end
+
   def to_s
     @path
   end
