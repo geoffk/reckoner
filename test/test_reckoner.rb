@@ -22,7 +22,7 @@ class ReckonerTest < Test::Unit::TestCase
   end
 
   def test_multiple_files
-    @cm.check('test'=> {'files'=> [File.join(ROOT,'one'), File.join(ROOT,'two')]})
+    @cm.check('test'=> {'files'=> [File.join(ROOT,'one'), File.join(ROOT,'two'),  File.join(ROOT,'th*')]})
     assert @cm.errors.empty?
 
     @cm.check('test'=> {'files'=> [File.join(ROOT,'one'), 
