@@ -1,3 +1,6 @@
+=== 0.10.0
+* Added wildcard support, but only for existing and freshness checks
+
 === 0.9.4.1
 * Excluding files that are more than a day in the future from Freshness
   checks.
